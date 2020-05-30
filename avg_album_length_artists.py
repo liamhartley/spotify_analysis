@@ -2,12 +2,9 @@ import spotipy
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from config.artists import spotify_artists
+
 spotify = spotipy.Spotify(client_credentials_manager=spotipy.oauth2.SpotifyClientCredentials())
-
-
-artists = {'spotify:artist:5K4W6rqBFWDnAN6FQUkS6x': 'Kanye West',
-           'spotify:artist:3TVXtAsR1Inumwj472S9r4': 'Drake'}
-
 
 final_data_dictionary = {'Year Released': [],
                          'Album Length': [],
@@ -15,7 +12,7 @@ final_data_dictionary = {'Year Released': [],
                          'Album Name': []}
 
 # For every artist we're looking for
-for artist in artists.keys():
+for artist in spotify_artists().keys():
     artists_albums = spotify.artist_albums(artist, album_type='album', limit=50)
     # For all of their albums
     for album in artists_albums['items']:
