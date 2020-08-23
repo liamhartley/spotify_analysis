@@ -24,21 +24,21 @@ Enjoy learning more about the music you listen to and your personal listening ha
 ## Installation 
 
 #### Pre-Requisites
-Python version 3.0.0 and above.
+[Python](https://www.python.org/downloads/), [Terraform](https://www.terraform.io/downloads.html) and [Spotipy](https://spotipy.readthedocs.io/en/2.13.0/).
 
-Download Python [here](https://www.python.org/downloads/). 
-
-#### Instructions
-- Pip install (TODO)
 
 <a name="usage"></a>
 ## Usage 
-
-Run the '__main__' for each script to generate output.
-
+Run the scripts with a dictionary of your faovurite artists or playlists to gather data about them and save it locally or in S3.
 
 <a name="projectarchitecture"></a>
 ## Project Architecture 
+The Terraform scripts build:
+- A lambda function with the analysis code
+- A cloudwatch alarm to run that function weekly
+- All relevant IAM policies / roles
+
+This will generate a datalake of Spotify data locally or in S3.
 
 <a name="futureimprovements"></a>
 ## Future Improvements
@@ -58,7 +58,7 @@ Any 'TODO' tags in the project.
 
 <a name="howtocontribute"></a>
 ## How to Contribute 
-
+DM me
 <a name="projectarchitecture"></a>
 ## Further Reading
 
