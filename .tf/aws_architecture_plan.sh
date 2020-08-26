@@ -18,3 +18,4 @@ zip -r ../../payload.zip *
 cd ../../.tf/
 
 terraform plan
+
