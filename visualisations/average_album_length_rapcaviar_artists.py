@@ -9,7 +9,7 @@ ax = plt.gca()
 def format_maindf(filepath: str):
     df = pd.read_csv(filepath, encoding='iso-8859-1')
 
-    df = df.set_index('Year Released')
+    df = df.set_index('ï»¿Year Released')
     df = df.mean(level=0)
     df = df.sort_index()
     df['Album Length'] = df['Album Length'] * 0.0000002777778
@@ -21,7 +21,7 @@ def calculate_trendline_function(df: pd.DataFrame):
     z = numpy.polyfit(df['Year Released'], df['Album Length'], 1)
     p = numpy.poly1d(z)
     # Unable to plot above, writing p out
-    print(p)
+    print(f'Trendline equation: {p}\n\n')
     return p
 
 
@@ -34,7 +34,8 @@ def trendlines(filepath: str):
             trend_data.setdefault(column, []).append(value)
 
     df_trend = pd.DataFrame(data=trend_data)
-    df_trend.set_index('\ufeffyear_released', inplace=True)
+    df_trend.set_index('﻿year_released', inplace=True)
+    df_trend = df_trend.sort_index()
     df_trend['album_length'] = [float(x) for x in df_trend['album_length']]
 
     return df_trend
@@ -59,13 +60,12 @@ if __name__ == '__main__':
     for trend_data in trendline_data_locations.keys():
         df_trend = trendlines(filepath=trend_data)
         df_trend.plot(use_index=True, y='album_length', kind='line', style=linestyle, legend=False, ax=ax, color=trendline_data_locations[trend_data])
-        # del df['Year Released']
 
     for label in ax.xaxis.get_ticklabels()[::2]:
         label.set_visible(False)
 
-    ax.legend(labels=('Without Deluxe Trend', 'All Artist Albums Trend', 'Deluxe Album Trend',
-                      'Without Deluxe', 'All Artist Albums', 'Deluxe Only'),
+    ax.legend(labels=('Deluxe Album Trend', 'All Artist Albums Trend', 'Without Deluxe Trend',
+                      'Deluxe Albums Only', 'All Artist Albums', 'Without Deluxe Albums'),
               loc='lower right')
 
     chart.set_ylabel("Average Album Length (hours)")
