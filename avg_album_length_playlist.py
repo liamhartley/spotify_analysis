@@ -5,31 +5,30 @@ from datetime import datetime
 
 from config.playlists import spotify_playlists
 from tools.playlists import get_artists_from_playlist
-from rapcaviar_transformer import get_artists
 
 spotipy_object = spotipy.Spotify(client_credentials_manager=spotipy.oauth2.SpotifyClientCredentials())
 
-
-artists = get_artists_from_playlist(spotify_playlists()['rap_caviar'])
-
-final_data_dictionary = {'Year Released': [],
-                         'Album Length': [],
-                         'Album Name': [],
-                         'Artist': []}
+PLAYLIST = 'rap_caviar'
 
 
 def gather_data_local():
     # For every artist we're looking for
+    final_data_dictionary = {
+        'Year Released': [],
+        'Album Length': [],
+        'Album Name': [],
+        'Artist': []
+    }
     with open("rapcaviar_albums.csv", 'w') as file:
-        header = ['Year Released', 'Album Length', 'Album Name', 'Artist']
+        header = list(final_data_dictionary.keys())
         writer = csv.DictWriter(file, fieldnames=header)
         writer.writeheader()
         albums_obtained = []
 
-        artists = get_artists()
+        artists = get_artists_from_playlist(spotify_playlists()[PLAYLIST])
 
         # for artist in artists.keys():
-        for artist in artists:
+        for artist in list(artists.keys()):
             print(artist)
             artists_albums = spotipy_object.artist_albums(artist, album_type='album', limit=50)
             # For all of their albums
@@ -47,6 +46,11 @@ def gather_data_local():
                                          'Album Length': album_length_ms,
                                          'Album Name': album_data['name'],
                                          'Artist': album_data['artists'][0]['name']})
+                        final_data_dictionary['Year Released'].append(album_data['release_date'][:4])
+                        final_data_dictionary['Album Length'].append(album_length_ms)
+                        final_data_dictionary['Album Name'].append(album_data['name'])
+                        final_data_dictionary['Artist'].append(album_data['artists'][0]['name'])
+
     return final_data_dictionary
 
 
@@ -56,6 +60,7 @@ def gather_data():
         header = ['Year Released', 'Album Length', 'Album Name', 'Artist']
         writer = csv.DictWriter(file, fieldnames=header)
         writer.writeheader()
+        artists = get_artists_from_playlist(spotify_playlists()[PLAYLIST])
         for artist in artists.keys():
             artists_albums = spotipy_object.artist_albums(artist, album_type='album', limit=50)
             # For all of their albums
@@ -75,9 +80,9 @@ def gather_data():
     s3_resource = boto3.resource('s3')
     date = datetime.now()
     filename = f'{date.year}/{date.month}/{date.day}/rapcaviar_albums.csv'
-    s3_resource.Object('spotify-analysis-data', filename).upload_file("/tmp/rapcaviar_albums.csv")
+    response = s3_resource.Object('spotify-analysis-data', filename).upload_file("/tmp/rapcaviar_albums.csv")
 
-    return final_data_dictionary
+    return response
 
 
 def lambda_handler(event, context):
@@ -85,12 +90,12 @@ def lambda_handler(event, context):
 
 
 if __name__ == '__main__':
-    data = gather_data_local()
+    data = gather_data()
 
-    s3_resource = boto3.resource('s3')
-    date = datetime.now()
-    filename = f'{date.year}/{date.month}/{date.day}/rapcaviar_albums.csv'
-    s3_resource.Object('spotify-analysis-data', filename).upload_file("rapcaviar_albums.csv")
+    # s3_resource = boto3.resource('s3')
+    # date = datetime.now()
+    # filename = f'{date.year}/{date.month}/{date.day}/rapcaviar_albums.csv'
+    # s3_resource.Object('spotify-analysis-data', filename).upload_file("rapcaviar_albums.csv")
 
 
 

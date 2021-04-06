@@ -2,7 +2,7 @@
 
 # Run this script pointing to all libraries required to package them for the Lambda.
 
-#terraform init
+terraform init
 
 cp -r /Users/liamhartley/IdeaProjects/fpl/venv/lib/python3.7/site-packages/spotipy ../lambda_payloads/avg_album_length_playlist_payload/
 cp -r /Users/liamhartley/IdeaProjects/fpl/venv/lib/python3.7/site-packages/requests ../lambda_payloads/avg_album_length_playlist_payload/

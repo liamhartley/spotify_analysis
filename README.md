@@ -10,8 +10,6 @@
     2. [Platform Imrpovements](#platformimprovements)
     3. [Code Quality Improvements](#codequalityimprovements)
 5. [How to Contribute](#howtocontribute)
-6. [Further Reading](#furtherreading)
-7. [Acknowledgements](#acknowledgements)
 
 <a name="introduction"></a>
 ## Introduction 
@@ -58,9 +56,4 @@ Any 'TODO' tags in the project.
 
 <a name="howtocontribute"></a>
 ## How to Contribute 
-DM me
-<a name="projectarchitecture"></a>
-## Further Reading
-
-<a name="acknowledgements"></a>
-## Acknowledgements 
+Make a branch and raise a PR
