@@ -1,0 +1,5 @@
+.idea
+.tf/terraform*
+.tf/.terraform
+
+__pycache__
