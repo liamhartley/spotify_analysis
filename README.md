@@ -31,6 +31,9 @@ Run the scripts with a dictionary of your faovurite artists or playlists to gath
 
 <a name="projectarchitecture"></a>
 ## Project Architecture 
+
+<img src="https://github.com/liamhartley/spotify_analysis/blob/master/spotify_analysis.drawio.png" width="500px">
+
 The Terraform scripts build:
 - A lambda function with the analysis code
 - A cloudwatch alarm to run that function weekly
