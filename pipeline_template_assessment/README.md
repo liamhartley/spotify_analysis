@@ -31,7 +31,7 @@ Fill in the blanks across the extract, transform and load (ETL) scripts in order
 
 Advanced ETL architecture:
 
-<img src="https://github.com/liamhartley/spotify_analysis/blob/master/pipeline_template_assessment/etl_simple.drawio.png" width="500px">
+<img src="https://github.com/liamhartley/spotify_analysis/blob/master/pipeline_template_assessment/etl_advanced.drawio.png" width="500px">
 
 The above diagram shows better ETL architecture than the previous diagram as the processes are able to run independently of one another.
 
