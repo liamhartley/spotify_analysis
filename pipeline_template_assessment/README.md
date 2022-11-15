@@ -1,6 +1,6 @@
 # Basic ETL Pipeline
 
-<img src="https://github.com/liamhartley/spotify_analysis/blob/master/pipeline_template/etl_simple.drawio.png" width="500px">
+<img src="https://github.com/liamhartley/spotify_analysis/blob/master/pipeline_template_assessment/etl_simple.drawio.png" width="500px">
 
 ## Contents
 0. [Introduction](#introduction)
